@@ -1,0 +1,39 @@
+{
+  "name": "gulp-embedlr",
+  "version": "0.5.0",
+  "description": "A gulp plugin for embedding a livereload snippet into html files",
+  "keywords": [
+    "gulpplugin",
+    "livereload"
+  ],
+  "homepage": "https://github.com/mollerse/gulp-embedlr",
+  "bugs": "https://github.com/mollerse/gulp-embedlr/issues",
+  "author": {
+    "name": "Stian Veum Møllersen",
+    "email": "stian.moellersen@gmail.com",
+    "url": "https://github.com/mollerse"
+  },
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mollerse/gulp-embedlr.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "event-stream": "*",
+    "through2": "~0.4.0"
+  },
+  "devDependencies": {
+    "gulp-util": "~2.2.0",
+    "gulp": "~3.3.2",
+    "assert": "~1.1.0",
+    "rimraf": "~2.2.5"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": "MIT"
+}
