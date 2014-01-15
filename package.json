@@ -1,6 +1,6 @@
 {
   "name": "gulp-embedlr",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A gulp plugin for embedding a livereload snippet into html files",
   "keywords": [
     "gulpplugin",
