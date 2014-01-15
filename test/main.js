@@ -31,6 +31,23 @@ describe('gulp-embedlr', function () {
     s.end();
   });
 
+  it('should let non-html files pass through', function(done) {
+
+    var s = embedlr();
+    s.pipe(es.through(function(file) {
+      assert.equal(file.path,'style.css');
+      assert.equal(file.contents.toString('utf-8'), 'somecontent');
+    }, function() {
+        done();
+    }));
+    s.write(new gutil.File({
+      path: 'style.css',
+      contents: new Buffer('somecontent')
+    }));
+    s.end();
+
+  });
+
   describe('in stream mode', function() {
     it('should produce the correct output with default options', function(done) {
       var srcFile = new gutil.File({
@@ -98,44 +115,6 @@ describe('gulp-embedlr', function () {
 
     });
 
-    it('should let non-html files pass through', function(done) {
-
-        var s = embedlr();
-        s.pipe(es.through(function(file) {
-          assert.equal(file.path,'style.css');
-          assert(file.contents instanceof Stream.PassThrough);
-        }, function() {
-            done();
-        }));
-
-        s.write(new gutil.File({
-          path: 'style.css',
-          contents: new Stream.PassThrough('somecontent')
-        }));
-        s.end();
-
-    });
-
-    it('should let non-html files pass through', function(done) {
-
-      var s = embedlr();
-      var n = 0;
-      s.pipe(es.through(function(file) {
-        assert.equal(file.path,'style.css');
-        assert.equal(file.contents.toString('utf-8'), 'somecontent');
-        n++;
-      }, function() {
-        assert.equal(n,1);
-        done();
-      }));
-      s.write(new gutil.File({
-        path: 'style.css',
-        contents: new Buffer('somecontent')
-      }));
-      s.end();
-
-    });
-
   });
 
   describe('in buffer mode', function() {
@@ -177,45 +156,6 @@ describe('gulp-embedlr', function () {
           done();
         });
     });
-
-
-
-    it('should let non-html files pass through', function(done) {
-
-      var s = embedlr();
-      s.pipe(es.through(function(file) {
-        assert.equal(file.path,'style.css');
-        assert.equal(file.contents.toString('utf-8'), 'somecontent');
-      }, function() {
-          done();
-      }));
-      s.write(new gutil.File({
-        path: 'style.css',
-        contents: new Buffer('somecontent')
-      }));
-      s.end();
-
-    });
-
-    it('should let non-html files pass through', function(done) {
-
-      var s = embedlr();
-      var n = 0;
-      s.pipe(es.through(function(file) {
-        assert.equal(file.path,'style.css');
-        assert(file.contents instanceof Stream.PassThrough);
-        n++;
-      }, function() {
-        assert.equal(n,1);
-        done();
-      }));
-      s.write(new gutil.File({
-        path: 'style.css',
-        contents: new Stream.PassThrough()
-      }));
-      s.end();
-
-    });
   });
 
   describe('interaction with gulp.dest', function() {
@@ -229,12 +169,8 @@ describe('gulp-embedlr', function () {
         .pipe(gulp.dest(__dirname + '/results/'))
         .on('end', function() {
             assert.equal(
-              fs.readFileSync(__dirname + '/results/hello.html',{
-                encoding: 'utf-8'
-              }),
-              fs.readFileSync(__dirname + '/expected/hello.html',{
-                encoding: 'utf-8'
-              })
+              fs.readFileSync(__dirname + '/results/hello.html').toString(),
+              fs.readFileSync(__dirname + '/expected/hello.html').toString()
             );
             fs.unlinkSync(__dirname + '/results/hello.html');
             fs.rmdirSync(__dirname + '/results/');
