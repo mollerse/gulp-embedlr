@@ -46,6 +46,8 @@ Alone, this plugin does not really do much interesting stuff, but combined with 
 
 This plugin is meant as an alternative to the [connect-livereload](https://github.com/intesso/connect-livereload) middleware or a browser plugin. For example with a simpler static server like [ecstatic](https://github.com/jesusabdullah/node-ecstatic) or simply `python -m SimpleHTTPServer`.
 
+A complete example using embedlr is available [here](https://gist.github.com/mollerse/8450954#file-gulpfile-js).
+
 
 ## License
 
